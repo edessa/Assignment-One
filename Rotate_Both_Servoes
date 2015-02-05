@@ -1,0 +1,42 @@
+/* Rotates one servo 180 degrees with period of one second and other servo 90 degrees with period of two seconds
+Eadom Dessalene
+ECE 499
+
+*/
+ 
+/* Serial device defines for dxl bus */
+#define DXL_BUS_SERIAL1 1  //Dynamixel on Serial1(USART1)  <-OpenCM9.04
+#define DXL_BUS_SERIAL2 2  //Dynamixel on Serial2(USART2)  <-LN101,BT210
+#define DXL_BUS_SERIAL3 3  //Dynamixel on Serial3(USART3)  <-OpenCM 485EXP
+/* Dynamixel ID defines */
+
+Dynamixel Dxl(DXL_BUS_SERIAL1); 
+ 
+void setup() {
+  // Initialize the dynamixel bus:
+  // Dynamixel 2.0 Baudrate -> 0: 9600, 1: 57600, 2: 115200, 3: 1Mbps  
+  Dxl.begin(3);  
+  Dxl.jointMode(1); //jointMode() is to use position mode  
+  Dxl.jointMode(2); //jointMode() is to use position mode  
+}
+ 
+void loop() {
+  //Turns survo with ID one to position 128
+  Dxl.goalPosition(1, 128); 
+  //Turns survo with ID two to position 0
+  Dxl.goalPosition(2, 0); 
+  //Wait for .5 seconds
+  delay(500);
+  //Turns survo with ID two to position 511
+  Dxl.goalPosition(2, 511);
+  //Wait for .5 seconds
+  delay(500);     
+    //Turns survo with ID one to position 255
+  Dxl.goalPosition(1, 255);   
+    //Turns survo with ID two to position 0
+  Dxl.goalPosition(2, 0); 
+  delay(500);
+    //Turns survo with ID two to position 511
+  Dxl.goalPosition(2, 511);
+  delay(500);    
+}
