@@ -1,0 +1,38 @@
+/* Dynamixel Basic Position Control Example
+ 
+Makes an XL-320 servo move from 45 deg to 90 deg with a period of 2 seconds
+ 
+                   Compatibility
+ CM900                  O
+ OpenCM9.04             O
+
+ 
+ */
+/* Serial device defines for dxl bus */
+#define DXL_BUS_SERIAL1 1  //Dynamixel on Serial1(USART1)  <-OpenCM9.04
+#define DXL_BUS_SERIAL2 2  //Dynamixel on Serial2(USART2)  <-LN101,BT210
+#define DXL_BUS_SERIAL3 3  //Dynamixel on Serial3(USART3)  <-OpenCM 485EXP
+/* Dynamixel ID defines */
+#define ID_NUM 1
+/* Control table defines */
+
+Dynamixel Dxl(DXL_BUS_SERIAL1);
+
+void setup() {
+  
+  // Dynamixel 2.0 Baudrate -> 0: 9600, 1: 57600, 2: 115200, 3: 1Mbps 
+  Dxl.begin(3);
+  Dxl.jointMode(ID_NUM); //jointMode() is to use position mode
+}
+
+void loop() {  
+  //Turn dynamixel ID 1 to position 0  
+  Dxl.goalPosition(ID_NUM, 128); 
+  // Wait for 1 second (1000 milliseconds)
+  delay(1000);         
+  //Turn dynamixel ID 1 to position 300
+  Dxl.goalPosition(ID_NUM, 256);
+  // Wait for 1 second (1000 milliseconds)
+  delay(1000);              
+}
+
